@@ -1,0 +1,16 @@
+{
+  "configurations": [
+    {
+      "name": "tetris",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/tetris/tetris",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/tetris",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb"
+    }
+  ]
+}
