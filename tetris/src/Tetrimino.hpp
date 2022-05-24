@@ -20,6 +20,8 @@ public:
   void rotate();
   void move(MoveDirection direction);
   bool isHit(const Block &fieldBlock) const;
+  std::array<std::pair<int, int>, 4> getPoints() const;
+  Block::Color getColor() const;
 
 public:
   void setTypeWithRotate(Type type, Rotate rotate);

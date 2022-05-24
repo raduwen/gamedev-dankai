@@ -18,9 +18,9 @@ Field::Field() {
     blocks_[height_][x].setColor(Block::Color::Gray);
   }
 
-  // [todo] - randomize current/next tetrimino
-  currentTetrimino_.setTypeWithRotate(Tetrimino::Type::I, Tetrimino::Rotate::A);
-  currentTetrimino_.setPosition(32 * 4, 0);
+  nextTetrimino_.setPosition((width_ + 4) * 32 + 32, -32);
+  nextTetrimino();
+  nextTetrimino();
 }
 
 Field::~Field() {}
@@ -46,12 +46,18 @@ void Field::update(InputManager &input) {
       currentTetrimino_.move(Tetrimino::MoveDirection::Down);
       if (isHit(currentTetrimino_)) {
         currentTetrimino_.move(Tetrimino::MoveDirection::Up);
-        // [todo] - fix blocks
+        putTetrimino();
+        nextTetrimino();
       }
     }
     if (input.isPushed(sf::Keyboard::Space)) {
       currentTetrimino_.rotate();
-      // [todo] - check collision
+      if (isHit(currentTetrimino_)) {
+        // todo 反対に回す? 位置を調整する?
+        currentTetrimino_.rotate();
+        currentTetrimino_.rotate();
+        currentTetrimino_.rotate();
+      }
     }
   }
 }
@@ -69,10 +75,23 @@ bool Field::isHit(const Tetrimino &tetrimino) const {
   return false;
 }
 
+void Field::putTetrimino() {
+  auto points = currentTetrimino_.getPoints();
+  auto pos = currentTetrimino_.getPosition();
+  std::size_t bx = pos.x / 32, by = pos.y / 32;
+  for (auto &point : points) {
+    blocks_[by + point.second][bx + point.first].setColor(currentTetrimino_.getColor());
+  }
+}
+
 void Field::nextTetrimino() {
   currentTetrimino_ = nextTetrimino_;
-  // [todo] - randomize next tetrimino
-  nextTetrimino_.setTypeWithRotate(Tetrimino::Type::I, Tetrimino::Rotate::A);
+  currentTetrimino_.setPosition(32 * 4, 0);
+
+  int t = dist(engine);
+  std::cout << t << std::endl;
+
+  nextTetrimino_.setTypeWithRotate(static_cast<Tetrimino::Type>(t), Tetrimino::Rotate::A);
 }
 
 void Field::draw(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -84,4 +103,5 @@ void Field::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   }
 
   target.draw(currentTetrimino_, states);
+  target.draw(nextTetrimino_, states);
 }

@@ -103,6 +103,15 @@ bool Tetrimino::isHit(const Block &fieldBlock) const {
   return false;
 }
 
+std::array<std::pair<int, int>, 4> Tetrimino::getPoints() const {
+  std::array<std::pair<int, int>, 4> points;
+  for (std::size_t i = 0; i < 4; ++i) {
+    auto p = blocks_[i].getPosition();
+    points[i] = std::make_pair(p.x / 32, p.y / 32);
+  }
+  return points;
+}
+
 Block::Color type2color(Tetrimino::Type type) {
   switch (type) {
   case Tetrimino::Type::I:
@@ -136,6 +145,8 @@ void Tetrimino::setTypeWithRotate(Type type, Rotate rotate) {
 }
 
 Tetrimino::Type Tetrimino::getType() const { return type_; }
+
+Block::Color Tetrimino::getColor() const { return type2color(type_); }
 
 void Tetrimino::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   states.transform *= getTransform();
