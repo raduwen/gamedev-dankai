@@ -15,6 +15,7 @@ public:
   Tetrimino &getCurrentTetrimino();
 
   bool isHit(const Tetrimino &tetrimino) const;
+  void fallTetrimino();
 
 private:
   void putTetrimino();

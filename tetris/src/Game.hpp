@@ -4,6 +4,7 @@
 #include "InputManager.hpp"
 #include "Tetrimino.hpp"
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Clock.hpp>
 #include <map>
 
 class Game {
@@ -20,4 +21,5 @@ private:
   sf::RenderWindow window_{{1600, 900}, "Tetris"};
   InputManager input_;
   Field field_;
+  sf::Clock clock_;
 };

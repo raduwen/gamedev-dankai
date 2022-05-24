@@ -1,5 +1,4 @@
 #include "Field.hpp"
-#include <iostream>
 
 Field::Field() {
   for (std::size_t y = 0; y < height_ + 1; ++y) {
@@ -26,9 +25,6 @@ Field::Field() {
 Field::~Field() {}
 
 void Field::update(InputManager &input) {
-  // [todo] - generate random tetrimino
-  // [todo] - fall
-
   { // process user input
     if (input.isPushed(sf::Keyboard::Left)) {
       currentTetrimino_.move(Tetrimino::MoveDirection::Left);
@@ -43,17 +39,12 @@ void Field::update(InputManager &input) {
       }
     }
     if (input.isPushed(sf::Keyboard::Down)) {
-      currentTetrimino_.move(Tetrimino::MoveDirection::Down);
-      if (isHit(currentTetrimino_)) {
-        currentTetrimino_.move(Tetrimino::MoveDirection::Up);
-        putTetrimino();
-        nextTetrimino();
-      }
+      fallTetrimino();
     }
     if (input.isPushed(sf::Keyboard::Space)) {
       currentTetrimino_.rotate();
       if (isHit(currentTetrimino_)) {
-        // todo 反対に回す? 位置を調整する?
+        // [todo] - 反対に回す? 位置を調整する?
         currentTetrimino_.rotate();
         currentTetrimino_.rotate();
         currentTetrimino_.rotate();
@@ -75,6 +66,15 @@ bool Field::isHit(const Tetrimino &tetrimino) const {
   return false;
 }
 
+void Field::fallTetrimino() {
+  currentTetrimino_.move(Tetrimino::MoveDirection::Down);
+  if (isHit(currentTetrimino_)) {
+    currentTetrimino_.move(Tetrimino::MoveDirection::Up);
+    putTetrimino();
+    nextTetrimino();
+  }
+}
+
 void Field::putTetrimino() {
   auto points = currentTetrimino_.getPoints();
   auto pos = currentTetrimino_.getPosition();
@@ -89,8 +89,6 @@ void Field::nextTetrimino() {
   currentTetrimino_.setPosition(32 * 4, 0);
 
   int t = dist(engine);
-  std::cout << t << std::endl;
-
   nextTetrimino_.setTypeWithRotate(static_cast<Tetrimino::Type>(t), Tetrimino::Rotate::A);
 }
 

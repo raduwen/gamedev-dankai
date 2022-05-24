@@ -9,10 +9,15 @@ void Game::run() {
     field_.setPosition({(ww - fw) / 2.f, (wh - fh) / 2.f});
   }
 
+  clock_.restart();
   while (window_.isOpen()) {
     processEvents();
     update();
     render();
+    if (clock_.getElapsedTime().asSeconds() > 1.f) {
+      clock_.restart();
+      field_.fallTetrimino();
+    }
   }
 }
 
