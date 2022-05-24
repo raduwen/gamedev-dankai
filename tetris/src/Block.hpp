@@ -5,10 +5,10 @@
 
 class Block : public sf::Drawable, public sf::Transformable {
 public:
-  enum class Color { Red, Green, Blue, Yellow, Purple, Cyan, Orange };
+  enum class Color { None, Red, Green, Blue, Yellow, Purple, Cyan, Orange, Gray };
 
 public:
-  Block(Color color = Color::Red);
+  Block(Color color = Color::None);
   ~Block();
 
   void setColor(Color color);

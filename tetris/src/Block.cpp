@@ -13,6 +13,8 @@ void Block::setColor(Color color) { shape.setFillColor(getSfColor(color)); }
 
 sf::Color Block::getSfColor(Color color) const {
   switch (color) {
+  case Color::None:
+    return sf::Color::Transparent;
   case Color::Red:
     return sf::Color::Red;
   case Color::Green:
@@ -27,5 +29,7 @@ sf::Color Block::getSfColor(Color color) const {
     return sf::Color::Cyan;
   case Color::Orange:
     return sf::Color(255, 128, 0);
+  case Color::Gray:
+    return sf::Color(64, 64, 64);
   }
 }
