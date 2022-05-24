@@ -12,6 +12,7 @@ public:
   ~Block();
 
   void setColor(Color color);
+  bool isNone() const;
 
 private:
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
@@ -19,5 +20,6 @@ private:
   sf::Color getSfColor(Color color) const;
 
 private:
-  sf::RectangleShape shape{{32, 32}};
+  Color color_{Color::None};
+  sf::RectangleShape shape_{{32, 32}};
 };

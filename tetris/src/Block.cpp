@@ -6,10 +6,15 @@ Block::~Block() {}
 
 void Block::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   states.transform *= getTransform();
-  target.draw(shape, states);
+  target.draw(shape_, states);
 }
 
-void Block::setColor(Color color) { shape.setFillColor(getSfColor(color)); }
+void Block::setColor(Color color) {
+  color_ = color;
+  shape_.setFillColor(getSfColor(color));
+}
+
+bool Block::isNone() const { return color_ == Color::None; }
 
 sf::Color Block::getSfColor(Color color) const {
   switch (color) {

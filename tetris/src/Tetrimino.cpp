@@ -72,6 +72,37 @@ void Tetrimino::rotate() {
   }
 }
 
+void Tetrimino::move(MoveDirection direction) {
+  switch (direction) {
+  case MoveDirection::Left:
+    sf::Transformable::move(-32.f, 0.f);
+    break;
+  case MoveDirection::Right:
+    sf::Transformable::move(32.f, 0.f);
+    break;
+  case MoveDirection::Down:
+    sf::Transformable::move(0.f, 32.f);
+    break;
+  case MoveDirection::Up:
+    sf::Transformable::move(0.f, -32.f);
+    break;
+  }
+}
+
+bool Tetrimino::isHit(const Block &fieldBlock) const {
+  auto p1 = getPosition();
+  auto bpos = fieldBlock.getPosition();
+
+  for (auto &block : blocks_) {
+    auto p2 = block.getPosition();
+    if (p1.x + p2.x == bpos.x && p1.y + p2.y == bpos.y) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 Block::Color type2color(Tetrimino::Type type) {
   switch (type) {
   case Tetrimino::Type::I:

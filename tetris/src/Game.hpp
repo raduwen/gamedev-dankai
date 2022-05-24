@@ -1,12 +1,14 @@
 #pragma once
 
 #include "Field.hpp"
+#include "InputManager.hpp"
 #include "Tetrimino.hpp"
 #include <SFML/Graphics.hpp>
 #include <map>
 
 class Game {
 public:
+  Game();
   void run();
 
 private:
@@ -16,8 +18,6 @@ private:
 
 private:
   sf::RenderWindow window_{{1600, 900}, "Tetris"};
-
-  // input state
-  std::map<sf::Keyboard::Key, bool> beforeInputState_, currentInputState_;
+  InputManager input_;
   Field field_;
 };

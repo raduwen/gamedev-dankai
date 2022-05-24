@@ -6,6 +6,9 @@
 
 class Tetrimino : public sf::Drawable, public sf::Transformable {
 public:
+  enum class MoveDirection { Left, Right, Down, Up };
+
+public:
   enum class Type { I, J, L, O, S, T, Z };
   enum class Rotate { A, B, C, D };
 
@@ -15,6 +18,8 @@ public:
 public:
   void setRotate(Rotate rotate);
   void rotate();
+  void move(MoveDirection direction);
+  bool isHit(const Block &fieldBlock) const;
 
 public:
   void setTypeWithRotate(Type type, Rotate rotate);
