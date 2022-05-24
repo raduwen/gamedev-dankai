@@ -1,12 +1,13 @@
+#include "Tetrimino.hpp"
 #include <SFML/Graphics.hpp>
+#include <map>
 
 int main() {
   sf::RenderWindow window(sf::VideoMode(800, 600), "Tetris");
+  Tetrimino t_i(Tetrimino::Type::I, Tetrimino::Rotate::A);
 
-  sf::RectangleShape block{{32, 32}};
-  block.setFillColor(sf::Color::Red);
-  block.setOutlineColor({64, 0, 0});
-  block.setOutlineThickness(1.f);
+  // input state
+  std::map<sf::Keyboard::Key, bool> beforeInputState, currentInputState;
 
   while (window.isOpen()) {
     // process events
@@ -20,18 +21,31 @@ int main() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
       window.close();
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-      block.move(-0.1, 0);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-      block.move(0.1, 0);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-      block.move(0, -0.1);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-      block.move(0, 0.1);
+    { // update input state
+      beforeInputState = currentInputState;
+      currentInputState.clear();
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        currentInputState[sf::Keyboard::Left] = true;
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        currentInputState[sf::Keyboard::Right] = true;
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        currentInputState[sf::Keyboard::Space] = true;
+    }
+
+    { // test tetrimino
+      if (beforeInputState[sf::Keyboard::Left] && !currentInputState[sf::Keyboard::Left]) {
+        auto t = t_i.getType();
+        auto nt = t == Tetrimino::Type::Z ? Tetrimino::Type::I : static_cast<Tetrimino::Type>(static_cast<int>(t) + 1);
+        t_i.setTypeWithRotate(nt, Tetrimino::Rotate::A);
+      }
+
+      if (beforeInputState[sf::Keyboard::Space] && !currentInputState[sf::Keyboard::Space])
+        t_i.rotate();
+    }
 
     // render
     window.clear();
-    window.draw(block);
+    window.draw(t_i);
     window.display();
   }
 

@@ -1,0 +1,31 @@
+#include "Block.hpp"
+
+Block::Block(Color color) { setColor(color); }
+
+Block::~Block() {}
+
+void Block::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+  states.transform *= getTransform();
+  target.draw(shape, states);
+}
+
+void Block::setColor(Color color) { shape.setFillColor(getSfColor(color)); }
+
+sf::Color Block::getSfColor(Color color) const {
+  switch (color) {
+  case Color::Red:
+    return sf::Color::Red;
+  case Color::Green:
+    return sf::Color::Green;
+  case Color::Blue:
+    return sf::Color::Blue;
+  case Color::Yellow:
+    return sf::Color::Yellow;
+  case Color::Purple:
+    return sf::Color(128, 0, 128);
+  case Color::Cyan:
+    return sf::Color::Cyan;
+  case Color::Orange:
+    return sf::Color(255, 128, 0);
+  }
+}
