@@ -2,15 +2,19 @@
   "configurations": [
     {
       "name": "tetris",
-      "type": "cppdbg",
       "request": "launch",
+      "type": "cppvsdbg",
       "program": "${workspaceFolder}/build/tetris/tetris",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/tetris",
       "environment": [],
-      "externalConsole": false,
-      "MIMode": "lldb"
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "osx": {
+        "type": "cppdbg",
+        "MIMode": "lldb"
+      }
     }
   ]
 }
