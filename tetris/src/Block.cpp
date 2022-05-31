@@ -14,6 +14,8 @@ void Block::setColor(Color color) {
   shape_.setFillColor(getSfColor(color));
 }
 
+Block::Color Block::getColor() const { return color_; }
+
 bool Block::isNone() const { return color_ == Color::None; }
 
 sf::Color Block::getSfColor(Color color) const {

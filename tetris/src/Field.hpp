@@ -20,6 +20,7 @@ public:
 private:
   void putTetrimino();
   void nextTetrimino();
+  void deleteLines();
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 private:

@@ -12,6 +12,7 @@ public:
   ~Block();
 
   void setColor(Color color);
+  Color getColor() const;
   bool isNone() const;
 
 private:

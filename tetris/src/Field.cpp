@@ -71,6 +71,7 @@ void Field::fallTetrimino() {
   if (isHit(currentTetrimino_)) {
     currentTetrimino_.move(Tetrimino::MoveDirection::Up);
     putTetrimino();
+    deleteLines();
     nextTetrimino();
   }
 }
@@ -90,6 +91,29 @@ void Field::nextTetrimino() {
 
   int t = dist(engine);
   nextTetrimino_.setTypeWithRotate(static_cast<Tetrimino::Type>(t), Tetrimino::Rotate::A);
+}
+
+void Field::deleteLines() {
+  for (std::size_t y = 0; y < height_; ++y) {
+    bool full{true};
+    for (std::size_t x = 1; x < width_ + 1; ++x) {
+      if (blocks_[y][x].isNone()) {
+        full = false;
+        break;
+      }
+    }
+
+    if (full) {
+      for (std::size_t y2 = y; y2 > 0; --y2) {
+        for (std::size_t x = 1; x < width_ + 1; ++x) {
+          blocks_[y2][x].setColor(blocks_[y2 - 1][x].getColor());
+        }
+      }
+      for (std::size_t x = 1; x < width_ + 1; ++x) {
+        blocks_[0][x].setColor(Block::Color::None);
+      }
+    }
+  }
 }
 
 void Field::draw(sf::RenderTarget &target, sf::RenderStates states) const {
