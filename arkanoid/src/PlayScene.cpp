@@ -8,6 +8,8 @@ PlayScene::PlayScene(sf::RenderWindow &window) {
 }
 
 void PlayScene::update(const sf::Time &deltaTime) {
+  racket_.update(deltaTime);
+
   ImGui::Begin("Racket info");
   ImGui::Text("Racket position: %.2f, %.2f", racket_.getPosition().x, racket_.getPosition().y);
   ImGui::End();
