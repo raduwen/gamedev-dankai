@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SceneManager.hpp"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
 
@@ -18,4 +19,5 @@ private:
 private:
   sf::RenderWindow window_{{1600, 900}, "arkanoid", sf::Style::Close};
   sf::Clock clock_;
+  SceneManager scene_manager_;
 };

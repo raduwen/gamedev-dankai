@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "PlayScene.hpp"
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <imgui-SFML.h>
@@ -8,6 +9,8 @@ Game::Game() {
   if (!ImGui::SFML::Init(window_)) {
     throw std::runtime_error("Failed to initialize ImGui-SFML");
   }
+  scene_manager_.add("play", std::make_unique<PlayScene>(window_));
+  scene_manager_.switchTo("play");
   clock_.restart();
 }
 
@@ -39,13 +42,17 @@ void Game::update() {
 
   ImGui::SFML::Update(window_, clock_.getElapsedTime());
 
-  ImGui::Begin("hello");
-  ImGui::Text("Hello");
-  ImGui::End();
+  /*
+    ImGui::Begin("hello");
+    ImGui::Text("Hello");
+    ImGui::End();
+  */
+  scene_manager_.update(clock_.restart());
 }
 
 void Game::render() {
   window_.clear();
+  scene_manager_.render(window_);
   ImGui::SFML::Render(window_);
   window_.display();
 }
