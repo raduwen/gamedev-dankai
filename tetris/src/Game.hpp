@@ -22,4 +22,8 @@ private:
   InputManager input_;
   Field field_;
   sf::Clock clock_;
+
+  sf::Font font_;
+  sf::Text score_text_;
+  int score_{0};
 };

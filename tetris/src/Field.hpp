@@ -17,6 +17,8 @@ public:
   bool isHit(const Tetrimino &tetrimino) const;
   void fallTetrimino();
 
+  int getDeletedLineCount() const;
+
 private:
   void putTetrimino();
   void nextTetrimino();
@@ -34,4 +36,6 @@ private:
   std::random_device seed_gen;
   std::mt19937 engine{seed_gen()};
   std::uniform_int_distribution<int> dist{0, 6};
+
+  int deleted_line_count_{0};
 };

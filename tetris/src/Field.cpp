@@ -25,6 +25,8 @@ Field::Field() {
 Field::~Field() {}
 
 void Field::update(InputManager &input) {
+  deleted_line_count_ = 0;
+
   { // process user input
     if (input.isPushed(sf::Keyboard::Left)) {
       currentTetrimino_.move(Tetrimino::MoveDirection::Left);
@@ -104,6 +106,7 @@ void Field::deleteLines() {
     }
 
     if (full) {
+      deleted_line_count_++;
       for (std::size_t y2 = y; y2 > 0; --y2) {
         for (std::size_t x = 1; x < width_ + 1; ++x) {
           blocks_[y2][x].setColor(blocks_[y2 - 1][x].getColor());
@@ -127,3 +130,5 @@ void Field::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   target.draw(currentTetrimino_, states);
   target.draw(nextTetrimino_, states);
 }
+
+int Field::getDeletedLineCount() const { return deleted_line_count_; }
