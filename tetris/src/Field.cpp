@@ -91,6 +91,11 @@ void Field::nextTetrimino() {
   currentTetrimino_ = nextTetrimino_;
   currentTetrimino_.setPosition(32 * 4, 0);
 
+  if (isHit(currentTetrimino_)) {
+    game_over_ = true;
+    return;
+  }
+
   int t = dist(engine);
   nextTetrimino_.setTypeWithRotate(static_cast<Tetrimino::Type>(t), Tetrimino::Rotate::A);
 }
@@ -132,3 +137,5 @@ void Field::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 int Field::getDeletedLineCount() const { return deleted_line_count_; }
+
+bool Field::isGameOver() const { return game_over_; }

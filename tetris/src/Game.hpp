@@ -25,5 +25,6 @@ private:
 
   sf::Font font_;
   sf::Text score_text_;
+  sf::Text game_over_text_;
   int score_{0};
 };

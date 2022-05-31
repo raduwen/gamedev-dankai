@@ -11,6 +11,13 @@ Game::Game() {
     score_text_.setOutlineColor({32, 32, 32});
     score_text_.setString("Score: 0");
     score_text_.setPosition(8, 8);
+
+    game_over_text_.setFont(font_);
+    game_over_text_.setCharacterSize(128);
+    game_over_text_.setFillColor(sf::Color::Red);
+    game_over_text_.setString("Game Over");
+    game_over_text_.setPosition(window_.getSize().x / 2 - game_over_text_.getGlobalBounds().width / 2,
+                                window_.getSize().y / 2 - game_over_text_.getGlobalBounds().height / 2);
   }
 }
 
@@ -41,29 +48,33 @@ void Game::update() {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     window_.close();
   input_.update();
-  field_.update(input_);
-  if (clock_.getElapsedTime().asSeconds() > 1.f) {
-    clock_.restart();
-    field_.fallTetrimino();
-  }
-
-  if (int count = field_.getDeletedLineCount(); count > 0) {
-    switch (count) {
-    case 1:
-      score_ += 10;
-      break;
-    case 2:
-      score_ += 50;
-      break;
-    case 3:
-      score_ += 200;
-      break;
-    case 4:
-      score_ += 500;
-      break;
+  if (field_.isGameOver()) {
+    // reset and start new game when hit any key
+  } else {
+    field_.update(input_);
+    if (clock_.getElapsedTime().asSeconds() > 1.f) {
+      clock_.restart();
+      field_.fallTetrimino();
     }
 
-    score_text_.setString("Score: " + std::to_string(score_));
+    if (int count = field_.getDeletedLineCount(); count > 0) {
+      switch (count) {
+      case 1:
+        score_ += 10;
+        break;
+      case 2:
+        score_ += 50;
+        break;
+      case 3:
+        score_ += 200;
+        break;
+      case 4:
+        score_ += 500;
+        break;
+      }
+
+      score_text_.setString("Score: " + std::to_string(score_));
+    }
   }
 }
 
@@ -71,5 +82,7 @@ void Game::render() {
   window_.clear();
   window_.draw(field_);
   window_.draw(score_text_);
+  if (field_.isGameOver())
+    window_.draw(game_over_text_);
   window_.display();
 }

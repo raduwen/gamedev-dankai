@@ -18,6 +18,7 @@ public:
   void fallTetrimino();
 
   int getDeletedLineCount() const;
+  bool isGameOver() const;
 
 private:
   void putTetrimino();
@@ -38,4 +39,6 @@ private:
   std::uniform_int_distribution<int> dist{0, 6};
 
   int deleted_line_count_{0};
+
+  bool game_over_{false};
 };
