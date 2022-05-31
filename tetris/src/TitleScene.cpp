@@ -3,7 +3,7 @@
 
 TitleScene::TitleScene(const sf::RenderWindow &window, SceneManager &scene_manager, InputManager &input_manager)
     : scene_manager_(scene_manager), input_(input_manager) {
-  font_.loadFromFile("Mplus2-Regular.ttf");
+  font_.loadFromFile("assets/fonts/Mplus2-Regular.ttf");
   title_text_.setFont(font_);
   title_text_.setCharacterSize(64);
   title_text_.setString("Tetris");

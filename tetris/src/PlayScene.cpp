@@ -3,7 +3,7 @@
 
 PlayScene::PlayScene(const sf::RenderWindow &window, SceneManager &scene_manager, InputManager &input_manager)
     : scene_manager_(scene_manager), input_(input_manager) {
-  if (!font_.loadFromFile("Mplus2-Regular.ttf")) {
+  if (!font_.loadFromFile("assets/fonts/Mplus2-Regular.ttf")) {
     std::cerr << "Failed to load font." << std::endl;
   } else {
     score_text_.setFont(font_);
