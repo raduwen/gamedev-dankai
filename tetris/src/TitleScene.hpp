@@ -16,6 +16,9 @@ public:
 private:
   sf::Font font_;
   sf::Text title_text_;
+  sf::Text push_text_;
   SceneManager &scene_manager_;
   InputManager &input_;
+  sf::Clock clock_;
+  bool plus_{true};
 };
