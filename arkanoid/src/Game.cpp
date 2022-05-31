@@ -42,11 +42,6 @@ void Game::update() {
 
   ImGui::SFML::Update(window_, clock_.getElapsedTime());
 
-  /*
-    ImGui::Begin("hello");
-    ImGui::Text("Hello");
-    ImGui::End();
-  */
   scene_manager_.update(clock_.restart());
 }
 
