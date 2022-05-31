@@ -20,6 +20,7 @@ Field::Field() {
   nextTetrimino_.setPosition((width_ + 4) * 32 + 32, -32);
   nextTetrimino();
   nextTetrimino();
+  fall_clock_.restart();
 }
 
 Field::~Field() {}
@@ -41,7 +42,7 @@ void Field::update(InputManager &input) {
       }
     }
     if (input.isPushed(sf::Keyboard::Down)) {
-      fallTetrimino();
+      fallTetrimino(true);
     }
     if (input.isPushed(sf::Keyboard::Space)) {
       currentTetrimino_.rotate();
@@ -68,7 +69,10 @@ bool Field::isHit(const Tetrimino &tetrimino) const {
   return false;
 }
 
-void Field::fallTetrimino() {
+void Field::fallTetrimino(bool force) {
+  if (!force && fall_clock_.getElapsedTime().asSeconds() < 1.f)
+    return;
+  fall_clock_.restart();
   currentTetrimino_.move(Tetrimino::MoveDirection::Down);
   if (isHit(currentTetrimino_)) {
     currentTetrimino_.move(Tetrimino::MoveDirection::Up);
@@ -141,6 +145,7 @@ int Field::getDeletedLineCount() const { return deleted_line_count_; }
 bool Field::isGameOver() const { return game_over_; }
 
 void Field::reset() {
+  fall_clock_.restart();
   deleted_line_count_ = 0;
   game_over_ = false;
   for (std::size_t y = 0; y < height_; ++y) {

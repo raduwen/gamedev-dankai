@@ -61,14 +61,12 @@ void Tetrimino::setRotate(Rotate rotate) { setTypeWithRotate(type_, rotate); }
 
 // [todo] - left / right
 void Tetrimino::rotate() {
-  if (rotate_ == Rotate::A) {
-    setRotate(Rotate::B);
-  } else if (rotate_ == Rotate::B) {
-    setRotate(Rotate::C);
-  } else if (rotate_ == Rotate::C) {
-    setRotate(Rotate::D);
-  } else {
+  int rotate = static_cast<int>(rotate_);
+  rotate++;
+  if (rotate > static_cast<int>(Rotate::D)) {
     setRotate(Rotate::A);
+  } else {
+    setRotate(static_cast<Rotate>(rotate));
   }
 }
 

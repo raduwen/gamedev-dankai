@@ -35,10 +35,7 @@ void PlayScene::update(const sf::Time &deltaTime) {
     }
   } else {
     field_.update(input_);
-    if (deltaTime.asSeconds() > 1.f) {
-      // [todo] - fieldにclockを持たせる
-      field_.fallTetrimino();
-    }
+    field_.fallTetrimino();
 
     if (int count = field_.getDeletedLineCount(); count > 0) {
       switch (count) {

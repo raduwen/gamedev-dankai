@@ -5,6 +5,7 @@
 #include "Tetrimino.hpp"
 #include <random>
 #include <vector>
+#include <SFML/System/Clock.hpp>
 
 class Field : public sf::Drawable, public sf::Transformable {
 public:
@@ -15,7 +16,7 @@ public:
   Tetrimino &getCurrentTetrimino();
 
   bool isHit(const Tetrimino &tetrimino) const;
-  void fallTetrimino();
+  void fallTetrimino(bool force = false);
 
   int getDeletedLineCount() const;
   bool isGameOver() const;
@@ -41,6 +42,7 @@ private:
   std::uniform_int_distribution<int> dist{0, 6};
 
   int deleted_line_count_{0};
+  sf::Clock fall_clock_;
 
   bool game_over_{false};
 };
