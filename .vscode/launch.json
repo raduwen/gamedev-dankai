@@ -15,6 +15,22 @@
         "type": "cppdbg",
         "MIMode": "lldb"
       }
+    },
+    {
+      "name": "arkanoid",
+      "request": "launch",
+      "type": "cppvsdbg",
+      "program": "${workspaceFolder}/build/arkanoid/arkanoid",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/arkanoid",
+      "environment": [],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "osx": {
+        "type": "cppdbg",
+        "MIMode": "lldb"
+      }
     }
   ]
 }

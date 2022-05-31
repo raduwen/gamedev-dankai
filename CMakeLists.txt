@@ -10,3 +10,4 @@ link_directories(/usr/local/lib)
 endif()
 
 add_subdirectory(tetris)
+add_subdirectory(arkanoid)
