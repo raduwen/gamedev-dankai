@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Field.hpp"
 #include "InputManager.hpp"
-#include "Tetrimino.hpp"
-#include <SFML/Graphics.hpp>
+#include "SceneManager.hpp"
 #include <SFML/System/Clock.hpp>
-#include <map>
 
 class Game {
 public:
@@ -19,12 +16,8 @@ private:
 
 private:
   sf::RenderWindow window_{{1600, 900}, "Tetris"};
+  SceneManager scene_manager_;
   InputManager input_;
-  Field field_;
-  sf::Clock clock_;
 
-  sf::Font font_;
-  sf::Text score_text_;
-  sf::Text game_over_text_;
-  int score_{0};
+  sf::Clock clock_;
 };

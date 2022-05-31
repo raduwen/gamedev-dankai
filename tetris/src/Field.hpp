@@ -20,6 +20,8 @@ public:
   int getDeletedLineCount() const;
   bool isGameOver() const;
 
+  void reset();
+
 private:
   void putTetrimino();
   void nextTetrimino();

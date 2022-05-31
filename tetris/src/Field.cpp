@@ -139,3 +139,17 @@ void Field::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 int Field::getDeletedLineCount() const { return deleted_line_count_; }
 
 bool Field::isGameOver() const { return game_over_; }
+
+void Field::reset() {
+  deleted_line_count_ = 0;
+  game_over_ = false;
+  for (std::size_t y = 0; y < height_; ++y) {
+    for (std::size_t x = 1; x < width_ + 1; ++x) {
+      blocks_[y][x].setColor(Block::Color::None);
+    }
+  }
+
+  nextTetrimino_.setPosition((width_ + 4) * 32 + 32, -32);
+  nextTetrimino();
+  nextTetrimino();
+}
